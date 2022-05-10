@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private string currentPlayerName;
+    [SerializeField] private int score=0;
 
     private string bestScorePlayerName;
     private int bestScore;
@@ -47,5 +48,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetScore(int score)
+    {
+        Instance.score += score;
+    }
+    public int GetScore()
+    {
+        return Instance.score;
     }
 }
