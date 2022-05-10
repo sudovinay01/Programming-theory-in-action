@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Characters : MonoBehaviour
 {
-    private float speed = 1000;
+    private float speedrangeMin = 500,
+        speedRangeMax = 2000,
+        fallZone = -2;
 
     private Rigidbody charcterRb;
 
@@ -12,22 +14,38 @@ public class Characters : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float spawnSpeed = Random.Range(speedrangeMin, speedRangeMax);
         charcterRb = GetComponent<Rigidbody>();
         spawnManager = GameObject.Find("Spawn Objects");
         Vector3 lookDirection = (spawnManager.transform.position - transform.position).normalized;
-        charcterRb.AddForce(lookDirection * speed);
+        charcterRb.AddForce(lookDirection * spawnSpeed);
+        StartCoroutine(DestroyIfNotMoving());
+        //Debug.Log(gameObject.name+":"+Time.deltaTime);
+
+        //Debug.Log(gameObject.name + ":" + Time.deltaTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (charcterRb.velocity.x == 0)
+        
+    }
+
+    IEnumerator DestroyIfNotMoving()
+    {
+        while (true)
         {
-            Destroy(gameObject);
+            Debug.Log("Looping");
+            yield return new WaitForSeconds(2);
+            if (charcterRb.velocity.x == 0)
+            {
+                Destroy(gameObject);
+            }
+            if (gameObject.transform.position.y < fallZone)
+            {
+                Destroy(gameObject);
+            }
         }
-        if (gameObject.transform.position.y < 0)
-        {
-            Destroy(gameObject);
-        }
+
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviour
 {
 
-    private float spawnPosZ = 5.5f,
-        spawnRangeX = 10,
-        startDelay = 0,
-        spawnInterval = 1f;
+    private float spawnPosZ = 10f,
+        spawnRangeX = 12,
+        startDelay = 0f,
+        spawnInterval = 2f;
 
     [SerializeField] private List<GameObject> characters;
 
